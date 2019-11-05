@@ -2,29 +2,29 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/labk8s:03
+    image: sbeliakou/labk8s:00
     container_name: master
     hostname: master
     volumes:
-      - /lib/modules:/lib/modules:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup
-      - /var/lib/containerd
+    - /lib/modules:/lib/modules:ro
+    - /sys/fs/cgroup:/sys/fs/cgroup
+    - /var/lib/containerd
     tmpfs:
-      - /run
-      - /tmp
+    - /run
+    - /tmp
     ports:
-      - 9090:9090
-      - 8081:8081
-      - 8001:8001
-      - 80:80
-      - 443:443
-      - 8443:6443
-      - 30080-30100:30080-30100
+    - 9090:9090
+    - 8081:8081
+    - 8001:8001
+    - 80:80
+    - 443:443
+    - 8443:6443
+    - 30080-30100:30080-30100
     env_file:
       - ~/.student
     environment:
       TRAINING: kubernetes
-      LAB: "deployments"
+      LAB: "basics"
       ANALYTICS: ecsc00a05b03.epam.com
     privileged: true
     cpus: 0.75
