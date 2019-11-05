@@ -2,7 +2,7 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/kind:master-1.15.3-01
+    image: sbeliakou/labk8s:01
     container_name: master
     hostname: master
     volumes:
@@ -27,7 +27,7 @@ services:
       LAB: "cluster-init"
       ANALYTICS: ecsc00a05b03.epam.com
     privileged: true
-    cpus: 1
+    cpus: 0.75
     ipc: private
     tty: true
     security_opt:
@@ -38,7 +38,7 @@ services:
         ipv4_address: 172.31.0.2
 
   node01:
-    image: sbeliakou/kind:node-1.15.3-01
+    image: sbeliakou/lab-k8s-node:latest
     hostname: node01
     volumes:
       - /lib/modules:/lib/modules:ro
@@ -48,7 +48,7 @@ services:
       - /run
       - /tmp
     privileged: true
-    cpus: 1
+    cpus: 0.5
     ipc: private
     tty: true
     security_opt:
@@ -58,6 +58,7 @@ services:
       - master
     networks:
       k8slocal:
+        ipv4_address: 172.31.0.3
 
 networks:
   k8slocal:
