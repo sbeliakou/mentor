@@ -1,0 +1,36 @@
+version: "2.3"
+
+services:
+  master:
+    image: sbeliakou/lab-docker:01-images
+    container_name: docker-host
+    hostname: docker-host
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - var_lib_docker:/var/lib/docker
+    tmpfs:
+      - /run
+      - /tmp
+    ports:
+      - 8022:8022
+      - 9090:9090
+      - 8081:8081
+      - 10080-10100:10080-10100
+    env_file:
+      - ~/.student
+    environment:
+      TRAINING: "docker"
+      LAB: "images"
+      ANALYTICS: ecsc00a05b03.epam.com
+      container: docker
+    labels:
+      lab.devops: yes
+      lab.name: docker:01-images
+      lab.env: ${PWD}
+    privileged: true
+    tty: true
+    cpus: 0.75
+    network_mode: bridge
+
+volumes:
+  var_lib_docker:

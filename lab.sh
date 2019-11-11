@@ -17,7 +17,7 @@ function status() {
   for item in $(find ${LABHOME} -maxdepth 3 -name "docker-compose.y*ml" | sed 's#'${LABHOME}'/##;s#/docker-compose.*##' | sort)
   do 
     if [ "${item}" == "${CLABNAME}" ]; then
-      printf "    >>> | %-30s | %s \n" "${item}" "running: http://localhost:8081"
+      printf "    \033[0;32m>>>\033[0m | \033[0;32m%-30s\033[0m | \033[0;32m%s\033[0m \n" "${item}" "running: http://localhost:8081"
     else
       printf "        | %-30s | \n" "${item}"
     fi
