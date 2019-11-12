@@ -10,6 +10,8 @@ else
   CLABNAME=""
 fi
 
+git pull 2>/dev/null 1>&2
+
 function status() {
   echo "--------+--------------------------------+-------------------------------"
   echo " Status : Interactive Labs               :"
@@ -38,7 +40,7 @@ function start() {
           fi
         done
         if [ -n "${ok}" ]; then
-          stop && cd ${LABHOME}/${LABNAME} && docker-compose up -d
+          stop && cd ${LABHOME}/${LABNAME} && docker-compose pull && docker-compose up -d
         else
           echo "Can't find this lab from a list of availables. Please double check"
           status
@@ -46,7 +48,7 @@ function start() {
       fi
     else
       echo "You're going to restart current lab (${CLABNAME}). Right?"
-      stop && cd ${LABHOME}/${LABNAME} && docker-compose up -d
+      stop && cd ${LABHOME}/${LABNAME} && docker-compose pull && docker-compose up -d
     fi
   fi
 }
