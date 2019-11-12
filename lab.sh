@@ -1,6 +1,9 @@
 #!/bin/bash
 
 cd $(dirname $0)
+git reset --hard HEAD 1>/dev/null 2>&1
+git pull -f 1>/dev/null 2>&1
+
 LABHOME=$(pwd)
 
 if [ -n "$(docker ps --filter label=lab.devops -q)" ]; then
@@ -9,8 +12,6 @@ if [ -n "$(docker ps --filter label=lab.devops -q)" ]; then
 else
   CLABNAME=""
 fi
-
-git pull 2>/dev/null 1>&2
 
 function status() {
   echo "--------+--------------------------------+-------------------------------"
