@@ -1,7 +1,7 @@
 version: "2.3"
 
 services:
-  master:
+  docker-host:
     image: sbeliakou/lab-docker:02-containers
     container_name: docker-host
     hostname: docker-host

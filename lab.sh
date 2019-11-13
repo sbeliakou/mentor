@@ -41,7 +41,7 @@ function start() {
           fi
         done
         if [ -n "${ok}" ]; then
-          stop && cd ${LABHOME}/${LABNAME} && docker-compose pull && docker-compose up -d
+          stop && cd ${LABHOME}/${LABNAME} && docker-compose pull && docker-compose up -d  --remove-orphans
         else
           echo "Can't find this lab from a list of availables. Please double check"
           status
@@ -49,7 +49,7 @@ function start() {
       fi
     else
       echo "You're going to restart current lab (${CLABNAME}). Right?"
-      stop && cd ${LABHOME}/${LABNAME} && docker-compose pull && docker-compose up -d
+      stop && cd ${LABHOME}/${LABNAME} && docker-compose pull && docker-compose up -d  --remove-orphans
     fi
   fi
 }
@@ -64,7 +64,7 @@ function stop() {
     done
     if [[ "$reply" =~ [yY] ]]; then
       echo "will stop '${CLABNAME}'"
-      cd ${LABPWD} && docker-compose down --volumes 2>/dev/null
+      cd ${LABPWD} && docker-compose down --volumes --remove-orphans 2>/dev/null
       echo stopped: ${CLABNAME}
     else 
       echo "ok, no worries"
