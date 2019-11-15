@@ -1,0 +1,38 @@
+version: "2.3"
+
+services:
+  docker-host:
+    image: sbeliakou/lab-docker:10-exam1
+    container_name: docker-host
+    hostname: docker-host
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - var_lib_docker:/var/lib/docker
+      - ~/docker/10-exam1:/workspace
+    tmpfs:
+      - /run
+      - /tmp
+    ports:
+      - 80:80
+      - 8022:8022
+      - 9090:9090
+      - 8081:8081
+      - 10080-10100:10080-10100
+    env_file:
+      - ~/.student
+    environment:
+      TRAINING: "docker"
+      LAB: "exam1"
+      ANALYTICS: ecsc00a05b03.epam.com
+      container: docker
+    labels:
+      lab.devops: yes
+      lab.name: docker:10-exam1
+      lab.env: ${PWD}
+    privileged: true
+    tty: true
+    cpus: 0.75
+    network_mode: bridge
+
+volumes:
+  var_lib_docker:
