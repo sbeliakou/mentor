@@ -1,0 +1,70 @@
+version: "2.3"
+
+services:
+  master:
+    image: sbeliakou/lab-kubernetes-master:playground
+    container_name: master
+    hostname: master
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/lib/containerd
+    tmpfs:
+      - /run
+      - /tmp
+    ports:
+      - 8022:8022
+      - 9090:9090
+      - 8081:8081
+      - 8001:8001
+      - 80:80
+      - 443:443
+      - 8443:6443
+      - 30080-30100:30080-30100
+    labels:
+      lab.devops: yes
+      lab.name: kubernetes/playground
+      lab.env: ${PWD}
+    privileged: true
+    cpus: 0.5
+    ipc: private
+    tty: true
+    security_opt:
+      - seccomp:unconfined
+    restart: unless-stopped
+    networks:
+      k8slocal:
+        ipv4_address: 172.31.0.2
+
+  node01:
+    image: sbeliakou/lab-kubernetes-node:playground
+    hostname: node01
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/lib/containerd
+    tmpfs:
+      - /run
+      - /tmp
+    ports:
+      - 8023:8022
+    privileged: true
+    cpus: 0.5
+    ipc: private
+    tty: true
+    security_opt:
+      - seccomp:unconfined
+    restart: unless-stopped
+    depends_on:
+      - master
+    networks:
+      k8slocal:
+        ipv4_address: 172.31.0.3
+
+networks:
+  k8slocal:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.31.0.0/16
+        gateway: 172.31.0.1
