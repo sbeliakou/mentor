@@ -32,7 +32,6 @@ services:
       lab.name: kubernetes:03-deployments
       lab.env: ${PWD}
     privileged: true
-    cpus: 0.75
     ipc: private
     tty: true
     security_opt:
