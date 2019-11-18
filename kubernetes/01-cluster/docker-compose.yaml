@@ -32,7 +32,6 @@ services:
       lab.name: kubernetes:01-cluster
       lab.env: ${PWD}
     privileged: true
-    cpus: 0.75
     ipc: private
     tty: true
     security_opt:
@@ -53,7 +52,6 @@ services:
       - /run
       - /tmp
     privileged: true
-    cpus: 0.5
     ipc: private
     tty: true
     security_opt:
