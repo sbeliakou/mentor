@@ -25,7 +25,7 @@ services:
       - ~/.student
     environment:
       TRAINING: kubernetes
-      LAB: "deployments"
+      LAB: "cluster-init"
       ANALYTICS: ecsc00a05b03.epam.com
     labels:
       lab.devops: yes
@@ -38,11 +38,33 @@ services:
       - seccomp:unconfined
     restart: unless-stopped
     networks:
-      k8slocal_00:
+      k8slocal:
         ipv4_address: 172.31.0.2
 
+  node01:
+    image: sbeliakou/lab-k8s-node01:latest
+    hostname: node01
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/lib/containerd
+    tmpfs:
+      - /run
+      - /tmp
+    privileged: true
+    ipc: private
+    tty: true
+    security_opt:
+      - seccomp:unconfined
+    restart: unless-stopped
+    depends_on:
+      - master
+    networks:
+      k8slocal:
+        ipv4_address: 172.31.0.3
+
 networks:
-  k8slocal_00:
+  k8slocal:
     ipam:
       driver: default
       config:
