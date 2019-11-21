@@ -26,7 +26,6 @@ services:
       lab.name: kubernetes/playground
       lab.env: ${PWD}
     privileged: true
-    cpus: 0.5
     ipc: private
     tty: true
     security_opt:
@@ -49,7 +48,6 @@ services:
     ports:
       - 8023:8022
     privileged: true
-    cpus: 0.5
     ipc: private
     tty: true
     security_opt:
