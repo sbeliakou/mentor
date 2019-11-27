@@ -2,13 +2,11 @@ version: "2.3"
 
 services:
   docker-host:
-    image: sbeliakou/lab-docker:03-volumes
+    image: sbeliakou/lab-docker:latest
     container_name: docker-host
     hostname: docker-host
     volumes:
-      - /lib/modules:/lib/modules:ro
       - var_lib_docker:/var/lib/docker
-      - ~/docker/03-volumes:/workspace
     tmpfs:
       - /run
       - /tmp
@@ -21,16 +19,17 @@ services:
       - ~/.student
     environment:
       TRAINING: "docker"
-      LAB: "volumes"
+      MODULE: "03-volumes"
       ANALYTICS: ecsc00a05b03.epam.com
       container: docker
     labels:
-      lab.devops: yes
-      lab.name: docker:03-volumes
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: docker/03-volumes
+      module: 03-volumes
+      training: docker
+      lab: yes
+    cpu_count: 1
     privileged: true
-    tty: true
-    cpus: 0.75
     network_mode: bridge
 
 volumes:

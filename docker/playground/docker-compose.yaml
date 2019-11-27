@@ -1,27 +1,35 @@
 version: "2.3"
 
 services:
-  docker-playground:
-    image: sbeliakou/lab-docker:playground
-    container_name: docker-playground
-    hostname: docker-playground
+  docker-host:
+    image: sbeliakou/lab-docker:latest
+    container_name: docker-host
+    hostname: docker-host
     volumes:
-      - /lib/modules:/lib/modules:ro
       - var_lib_docker:/var/lib/docker
     tmpfs:
       - /run
       - /tmp
     ports:
-      - 8081:8081
       - 8022:8022
+      - 9090:9090
+      - 8081:8081
       - 10080-10100:10080-10100
+    env_file:
+      - ~/.student
+    environment:
+      TRAINING: "docker"
+      MODULE: "playground"
+      ANALYTICS: ecsc00a05b03.epam.com
+      container: docker
     labels:
-      lab.devops: yes
-      lab.name: docker:playground
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: docker/playground
+      module: playground
+      training: docker
+      lab: yes
+    cpu_count: 1
     privileged: true
-    tty: true
-    cpus: 0.75
     network_mode: bridge
 
 volumes:

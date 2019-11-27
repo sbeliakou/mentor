@@ -2,12 +2,12 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/lab-kubernetes:02-pods
+    image: sbeliakou/lab-k8s-master:latest
     container_name: master
     hostname: master
     volumes:
       - /lib/modules:/lib/modules:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/lib/containerd
     tmpfs:
       - /run
@@ -24,16 +24,19 @@ services:
     env_file:
       - ~/.student
     environment:
-      TRAINING: kubernetes
-      LAB: "cluster-init"
+      TRAINING: "kubernetes"
+      MODULE: "02-pods"
       ANALYTICS: ecsc00a05b03.epam.com
+      container: docker
     labels:
-      lab.devops: yes
-      lab.name: kubernetes:02-pods
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: kubernetes/02-pods
+      module: 02-pods
+      training: kubernetes
+      lab: yes
+    cpu_count: 1
     privileged: true
     ipc: private
-    tty: true
     security_opt:
       - seccomp:unconfined
     restart: unless-stopped
@@ -46,14 +49,14 @@ services:
     hostname: node01
     volumes:
       - /lib/modules:/lib/modules:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/lib/containerd
     tmpfs:
       - /run
       - /tmp
-    privileged: true
     ipc: private
-    tty: true
+    cpu_count: 1
+    privileged: true
     security_opt:
       - seccomp:unconfined
     restart: unless-stopped

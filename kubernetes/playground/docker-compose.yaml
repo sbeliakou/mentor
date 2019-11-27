@@ -2,12 +2,12 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/lab-kubernetes-master:playground
+    image: sbeliakou/lab-k8s-master:latest
     container_name: master
     hostname: master
     volumes:
       - /lib/modules:/lib/modules:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/lib/containerd
     tmpfs:
       - /run
@@ -21,13 +21,22 @@ services:
       - 443:443
       - 8443:6443
       - 30080-30100:30080-30100
+    env_file:
+      - ~/.student
+    environment:
+      TRAINING: "kubernetes"
+      MODULE: "playground"
+      ANALYTICS: ecsc00a05b03.epam.com
+      container: docker
     labels:
-      lab.devops: yes
-      lab.name: kubernetes/playground
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: kubernetes/playground
+      module: playground
+      training: kubernetes
+      lab: yes
+    cpu_count: 1
     privileged: true
     ipc: private
-    tty: true
     security_opt:
       - seccomp:unconfined
     restart: unless-stopped
@@ -36,20 +45,18 @@ services:
         ipv4_address: 172.31.0.2
 
   node01:
-    image: sbeliakou/lab-kubernetes-node:playground
+    image: sbeliakou/lab-k8s-node01:latest
     hostname: node01
     volumes:
       - /lib/modules:/lib/modules:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/lib/containerd
     tmpfs:
       - /run
       - /tmp
-    ports:
-      - 8023:8022
-    privileged: true
     ipc: private
-    tty: true
+    cpu_count: 1
+    privileged: true
     security_opt:
       - seccomp:unconfined
     restart: unless-stopped

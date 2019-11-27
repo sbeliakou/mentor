@@ -2,13 +2,11 @@ version: "2.3"
 
 services:
   docker-host:
-    image: sbeliakou/lab-docker:05-compose
+    image: sbeliakou/lab-docker:latest
     container_name: docker-host
     hostname: docker-host
     volumes:
-      - /lib/modules:/lib/modules:ro
       - var_lib_docker:/var/lib/docker
-      - ~/docker/05-compose:/workspace
     tmpfs:
       - /run
       - /tmp
@@ -21,16 +19,17 @@ services:
       - ~/.student
     environment:
       TRAINING: "docker"
-      LAB: "compose"
+      MODULE: "05-compose"
       ANALYTICS: ecsc00a05b03.epam.com
       container: docker
     labels:
-      lab.devops: yes
-      lab.name: docker:05-compose
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: docker/05-compose
+      module: 05-compose
+      training: docker
+      lab: yes
+    cpu_count: 1
     privileged: true
-    tty: true
-    cpus: 0.75
     network_mode: bridge
 
 volumes:

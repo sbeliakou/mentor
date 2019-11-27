@@ -1,14 +1,12 @@
 version: "2.3"
 
 services:
-  master:
-    image: sbeliakou/lab-docker:01-images
+  docker-host:
+    image: sbeliakou/lab-docker:latest
     container_name: docker-host
     hostname: docker-host
     volumes:
-      - /lib/modules:/lib/modules:ro
       - var_lib_docker:/var/lib/docker
-      - ~/docker/01-images:/workspace
     tmpfs:
       - /run
       - /tmp
@@ -21,16 +19,17 @@ services:
       - ~/.student
     environment:
       TRAINING: "docker"
-      LAB: "images"
+      MODULE: "01-images"
       ANALYTICS: ecsc00a05b03.epam.com
       container: docker
     labels:
-      lab.devops: yes
-      lab.name: docker:01-images
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: docker/01-images
+      module: 01-images
+      training: docker
+      lab: yes
+    cpu_count: 1
     privileged: true
-    tty: true
-    cpus: 0.75
     network_mode: bridge
 
 volumes:

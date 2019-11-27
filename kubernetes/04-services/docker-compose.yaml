@@ -25,13 +25,13 @@ services:
       - ~/.student
     environment:
       TRAINING: "kubernetes"
-      MODULE: "01-cluster"
+      MODULE: "04-services"
       ANALYTICS: ecsc00a05b03.epam.com
       container: docker
     labels:
       project: ${PWD}
-      name: kubernetes/01-cluster
-      module: 01-cluster
+      name: kubernetes/04-services
+      module: 04-services
       training: kubernetes
       lab: yes
     cpu_count: 1

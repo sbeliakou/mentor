@@ -2,12 +2,12 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/lab-kubernetes:00-basics
+    image: sbeliakou/lab-k8s-master:latest
     container_name: master
     hostname: master
     volumes:
       - /lib/modules:/lib/modules:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /var/lib/containerd
     tmpfs:
       - /run
@@ -25,25 +25,49 @@ services:
       - ~/.student
     environment:
       TRAINING: "kubernetes"
-      LAB: "basics"
+      MODULE: "00-basics"
       ANALYTICS: ecsc00a05b03.epam.com
+      container: docker
     labels:
-      lab.devops: yes
-      lab.name: kubernetes:00-basics
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: kubernetes/00-basics
+      module: 00-basics
+      training: kubernetes
+      lab: yes
+    cpu_count: 1
     privileged: true
-    cpus: 0.75
     ipc: private
-    tty: true
     security_opt:
       - seccomp:unconfined
     restart: unless-stopped
     networks:
-      k8slocal_00:
+      k8slocal:
         ipv4_address: 172.31.0.2
 
+  node01:
+    image: sbeliakou/lab-k8s-node01:latest
+    hostname: node01
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/containerd
+    tmpfs:
+      - /run
+      - /tmp
+    ipc: private
+    cpu_count: 1
+    privileged: true
+    security_opt:
+      - seccomp:unconfined
+    restart: unless-stopped
+    depends_on:
+      - master
+    networks:
+      k8slocal:
+        ipv4_address: 172.31.0.3
+
 networks:
-  k8slocal_00:
+  k8slocal:
     ipam:
       driver: default
       config:

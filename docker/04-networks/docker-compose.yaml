@@ -2,13 +2,11 @@ version: "2.3"
 
 services:
   docker-host:
-    image: sbeliakou/lab-docker:04-networks
+    image: sbeliakou/lab-docker:latest
     container_name: docker-host
     hostname: docker-host
     volumes:
-      - /lib/modules:/lib/modules:ro
       - var_lib_docker:/var/lib/docker
-      - ~/docker/04-networks:/workspace
     tmpfs:
       - /run
       - /tmp
@@ -21,16 +19,17 @@ services:
       - ~/.student
     environment:
       TRAINING: "docker"
-      LAB: "networks"
+      MODULE: "04-networks"
       ANALYTICS: ecsc00a05b03.epam.com
       container: docker
     labels:
-      lab.devops: yes
-      lab.name: docker:04-networks
-      lab.env: ${PWD}
+      project: ${PWD}
+      name: docker/04-networks
+      module: 04-networks
+      training: docker
+      lab: yes
+    cpu_count: 1
     privileged: true
-    tty: true
-    cpus: 0.75
     network_mode: bridge
 
 volumes:
