@@ -26,6 +26,7 @@ function status() {
 
 function start() {
   if [ -n "${standName}" ]; then
+    docker-compose -f envs/${standName}.yaml pull
     docker-compose -f envs/${standName}.yaml up -d
   fi
 }

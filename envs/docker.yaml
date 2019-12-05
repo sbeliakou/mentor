@@ -18,9 +18,9 @@ services:
       - 10080-10100:10080-10100
       - 32768-32800:32768-32800
     environment:
-      TRAINING: docker
-      PROFILE: LAB2019T3A
+      TRAINING: "docker"
       ANALYTICS: ecsc00a05b03.epam.com
+      PROFILE: 
     labels:
       project: ${PWD}
       training: docker
