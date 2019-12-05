@@ -6,30 +6,46 @@ git pull -f 1>/dev/null 2>&1
 
 standName=${2}
 
+function getRunning(){
+  docker ps -qa --filter label=lab
+}
+
 function status() {
-  cat trainings.yaml | grep 'name:' | awk '{print $3}'
+  if [[ -n "$(getRunning)" ]]; then
+    echo Running Trainings:
+    TRAINING=$(docker inspect $(getRunning | head -1) -f '{{.Config.Labels.training}}')
+    docker ps -a --filter label=lab \
+      --format "table {{.ID}}|{{.Names}}|{{.Status}}|TRAINING|URL" | 
+    sed 's/^\([0-9a-f].*\)URL/\1http:\/\/localhost:8081/;s/^\([0-9a-f].*\)TRAINING/\1'${TRAINING}'/' |
+    awk -F'|' '{printf "  %-15s %-15s %-15s %-10s %s\n", $1, $2, $3, $4, $5}'
+    echo
+  fi 
+  echo Available Trainings:
+  cat trainings.yaml | grep 'name:' | awk '{printf "  - %s\n", $3}'
 }
 
 function start() {
-  docker-compose -f envs/${standName}.yaml up -d
+  if [ -n "${standName}" ]; then
+    docker-compose -f envs/${standName}.yaml up -d
+  fi
 }
 
 function stop() {
-  docker-compose -f envs/${standName}.yaml down --volumes
+  if [[ -n "$(getRunning)" ]]; then
+    TRAINING=$(docker inspect $(getRunning | head -1) -f '{{.Config.Labels.training}}')
+    docker-compose -f envs/${TRAINING}.yaml down --volumes
+  fi
 }
 
 case $1 in
-  status)
-    status 
-    ;;
-  start)
+  start|up|run)
     start
     ;;
   restart)
     stop
     start
     ;;
-  stop)
+  stop|down)
     stop 
     ;;
   *) status
