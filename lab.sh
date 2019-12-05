@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cd $(dirname $0)
-# git reset --hard HEAD 1>/dev/null 2>&1
-# git pull -f 1>/dev/null 2>&1
+git reset --hard HEAD 1>/dev/null 2>&1
+git pull -f 1>/dev/null 2>&1
 
 standName=${2}
 
