@@ -1,0 +1,5 @@
+- name: docker
+  modules:
+  - 00-basics
+  - 01-images
+  - 02-containers
