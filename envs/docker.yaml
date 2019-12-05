@@ -20,7 +20,7 @@ services:
     environment:
       TRAINING: "docker"
       ANALYTICS: ecsc00a05b03.epam.com
-      PROFILE: 
+      PROFILE: LAB2019T3A
     labels:
       project: ${PWD}
       training: docker
