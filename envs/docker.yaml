@@ -6,26 +6,23 @@ services:
     container_name: docker-host
     hostname: docker-host
     volumes:
-      - var_lib_docker:/var/lib/docker
+      - docker_root:/var/lib/docker
+      - ../trainings.yaml:/var/_data/trainings.yaml
     tmpfs:
       - /run
       - /tmp
     ports:
       - 8022:8022
-      - 9090:9090
       - 8081:8081
+      - 9090:9090
       - 10080-10100:10080-10100
-    env_file:
-      - ~/.student
+      - 32768-32800:32768-32800
     environment:
-      TRAINING: "docker"
-      MODULE: "04-networks"
+      TRAINING: docker
+      PROFILE: LAB2019T3A
       ANALYTICS: ecsc00a05b03.epam.com
-      container: docker
     labels:
       project: ${PWD}
-      name: docker/04-networks
-      module: 04-networks
       training: docker
       lab: yes
     cpu_count: 1
@@ -33,4 +30,5 @@ services:
     network_mode: bridge
 
 volumes:
-  var_lib_docker:
+  docker_root:
+    name: docker_root

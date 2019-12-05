@@ -8,6 +8,7 @@ services:
     volumes:
       - /lib/modules:/lib/modules:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ../trainings.yaml:/var/_data/trainings.yaml
       - /var/lib/containerd
     tmpfs:
       - /run
@@ -21,17 +22,11 @@ services:
       - 443:443
       - 8443:6443
       - 30080-30100:30080-30100
-    env_file:
-      - ~/.student
     environment:
-      TRAINING: "kubernetes"
-      MODULE: "04-services"
+      TRAINING: kubernetes
       ANALYTICS: ecsc00a05b03.epam.com
-      container: docker
     labels:
       project: ${PWD}
-      name: kubernetes/04-services
-      module: 04-services
       training: kubernetes
       lab: yes
     cpu_count: 1
@@ -54,6 +49,12 @@ services:
     tmpfs:
       - /run
       - /tmp
+    environment:
+      TRAINING: kubernetes
+      ANALYTICS: ecsc00a05b03.epam.com
+    labels:
+      project: ${PWD}
+      lab: yes
     ipc: private
     cpu_count: 1
     privileged: true
