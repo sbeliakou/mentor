@@ -8,10 +8,13 @@ services:
     volumes:
       - docker_root:/var/lib/docker
       - ../trainings.yaml:/var/_data/trainings.yaml
+      - ~/docker:/workspace/
     tmpfs:
       - /run
       - /tmp
     ports:
+      - 80:80
+      - 8080:8080
       - 8022:8022
       - 8081:8081
       - 9090:9090
