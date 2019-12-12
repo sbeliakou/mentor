@@ -8,3 +8,8 @@
   - 05-compose
   - 06-limits
   - 07-extra
+
+- name: kubernetes
+  modules:
+  - 00-basics 
+  - 02-pods
