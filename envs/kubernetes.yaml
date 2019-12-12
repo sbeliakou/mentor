@@ -54,6 +54,7 @@ services:
       ANALYTICS: ecsc00a05b03.epam.com
     labels:
       project: ${PWD}
+      training: kubernetes
       lab: yes
     ipc: private
     cpu_count: 1
