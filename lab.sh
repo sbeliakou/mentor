@@ -33,8 +33,15 @@ function start() {
 
 function stop() {
   if [[ -n "$(getRunning)" ]]; then
-    TRAINING=$(docker inspect $(getRunning | head -1) -f '{{.Config.Labels.training}}')
-    docker-compose -f envs/${TRAINING}.yaml down --volumes
+    TRAINING=$(docker inspect $(getRunning | head -1) -f '{{.Config.Labels.training}}' | sed 's/<no value>//')
+    echo ${TRAINING}
+    if [ -n "${TRAINING}" ]; then
+      docker-compose -f envs/${TRAINING}.yaml down --volumes
+    else
+     docker-compose -f envs/${standName}.yaml down --volumes
+    fi
+  else
+    docker-compose -f envs/${standName}.yaml down --volumes
   fi
 }
 
@@ -47,7 +54,7 @@ case $1 in
     start
     ;;
   stop|down)
-    stop 
+    stop
     ;;
   *) status
 esac
