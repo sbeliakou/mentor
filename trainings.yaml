@@ -13,3 +13,4 @@
   modules:
   - 00-basics 
   - 02-pods
+  - check-01
