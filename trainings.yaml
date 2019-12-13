@@ -12,5 +12,8 @@
 - name: kubernetes
   modules:
   - 00-basics 
+  - 01-cluster
   - 02-pods
-  - check-01
+  - 03-deployments
+  - 04-services
+  - 05-ingress
