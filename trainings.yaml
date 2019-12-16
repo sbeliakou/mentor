@@ -17,3 +17,5 @@
   - 03-deployments
   - 04-services
   - 05-ingress
+  - 06-volumes
+  - 07-configmaps-and-secrets 
