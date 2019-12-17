@@ -11,6 +11,7 @@ function Get-Status {
 }
 
 Function Docker-Start {
+    docker-compose -f $(Join-Path -Path $PSScriptRoot -ChildPath "envs\$standName.yaml") pull
     docker-compose -f $(Join-Path -Path $PSScriptRoot -ChildPath "envs\$standName.yaml") up -d
 }
 
