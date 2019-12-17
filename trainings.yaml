@@ -11,11 +11,12 @@
 
 - name: kubernetes
   modules:
-  - 00-basics 
-  - 01-cluster
-  - 02-pods
-  - 03-deployments
-  - 04-services
-  - 05-ingress
-  - 06-volumes
-  - 07-configmaps-and-secrets 
+  # - 00-basics 
+  # - 01-cluster
+  # - 02-pods
+  # - 03-deployments
+  # - 04-services
+  # - 05-ingress
+  # - 06-volumes
+  # - 07-configmaps-and-secrets
+  - check-02
