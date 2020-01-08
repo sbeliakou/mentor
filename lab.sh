@@ -21,7 +21,12 @@ function status() {
     echo
   fi 
   echo Available Trainings:
-  cat trainings.yaml | grep 'name:' | awk '{printf "  - %s\n", $3}'
+  find envs/ -name "*.yaml" | sed 's#.*/##;s#.yaml$##' | awk '{printf "  - %s\t ([user@host] $ ./lab.sh start %s)\n", $1, $1}'
+  echo
+
+  echo "To stop running training, please hit this command:"
+  echo "[user@host] \$ ./lab.sh stop"
+  echo
 }
 
 function start() {
