@@ -2,12 +2,11 @@ version: "2.3"
 
 services:
   docker-host:
-    image: sbeliakou/lab-docker:latest
+    image: sbeliakou/lab:docker
     container_name: docker-host
     hostname: docker-host
     volumes:
       - docker_root:/var/lib/docker
-      - ../trainings.yaml:/var/_data/trainings.yaml
       - ~/docker:/workspace/
     tmpfs:
       - /run
@@ -22,8 +21,6 @@ services:
       - 32768-32800:32768-32800
     environment:
       TRAINING: "docker"
-      ANALYTICS: ecsc00a05b03.epam.com
-      PROFILE: LAB2019T3A
     labels:
       project: ${PWD}
       training: docker
