@@ -2,7 +2,7 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/lab-k8s-master:latest
+    image: sbeliakou/lab:k8s-master
     container_name: master
     hostname: master
     volumes:
@@ -40,7 +40,7 @@ services:
         ipv4_address: 172.31.0.2
 
   node01:
-    image: sbeliakou/lab-k8s-node01:latest
+    image: sbeliakou/lab:k8s-node01
     hostname: node01
     volumes:
       - /lib/modules:/lib/modules:ro
