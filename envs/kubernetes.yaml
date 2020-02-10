@@ -2,13 +2,12 @@ version: "2.3"
 
 services:
   master:
-    image: sbeliakou/lab:k8s-master
+    image: sbeliakou/playpit-labs:kubernetes-master
     container_name: master
     hostname: master
     volumes:
       - /lib/modules:/lib/modules:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ../trainings.yaml:/var/_data/trainings.yaml
       - /var/lib/containerd
     tmpfs:
       - /run
@@ -23,7 +22,7 @@ services:
       - 8443:6443
       - 30080-30100:30080-30100
     environment:
-      TRAINING: kubernetes
+      TRAINING: siarhei_beliakou/trainings/prod/kubernetes
       ANALYTICS: ecsc00a05b03.epam.com
     labels:
       project: ${PWD}
@@ -40,8 +39,9 @@ services:
         ipv4_address: 172.31.0.2
 
   node01:
-    image: sbeliakou/lab:k8s-node01
+    image: sbeliakou/playpit-labs:kubernetes-node01
     hostname: node01
+    container_name: node01
     volumes:
       - /lib/modules:/lib/modules:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -50,7 +50,7 @@ services:
       - /run
       - /tmp
     environment:
-      TRAINING: kubernetes
+      TRAINING: siarhei_beliakou/trainings/prod/kubernetes
       ANALYTICS: ecsc00a05b03.epam.com
     labels:
       project: ${PWD}
@@ -70,6 +70,7 @@ services:
 
 networks:
   k8slocal:
+    name: playpit-labs-network
     ipam:
       driver: default
       config:

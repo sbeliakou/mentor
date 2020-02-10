@@ -2,7 +2,7 @@ version: "2.3"
 
 services:
   docker-host:
-    image: sbeliakou/lab:docker
+    image: sbeliakou/playpit-labs:docker
     container_name: docker-host
     hostname: docker-host
     volumes:
