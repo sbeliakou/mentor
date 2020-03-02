@@ -22,8 +22,7 @@ services:
       - 8443:6443
       - 30080-30100:30080-30100
     environment:
-      TRAINING: siarhei_beliakou/trainings/prod/kubernetes
-      ANALYTICS: ecsc00a05b03.epam.com
+      TRAINING: siarhei_beliakou/playpit-labs-k8s/master
     labels:
       project: ${PWD}
       training: kubernetes
@@ -50,14 +49,12 @@ services:
       - /run
       - /tmp
     environment:
-      TRAINING: siarhei_beliakou/trainings/prod/kubernetes
-      ANALYTICS: ecsc00a05b03.epam.com
+      TRAINING: siarhei_beliakou/playpit-labs-k8s/master
     labels:
       project: ${PWD}
       training: kubernetes
       lab: yes
     ipc: private
-    cpu_count: 1
     privileged: true
     security_opt:
       - seccomp:unconfined
